@@ -34,7 +34,7 @@ app.post('/users', (req, res) => {
   db.run('INSERT INTO Users (name, age) VALUES (?, ?)', [name, age], function (err) {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+      return "teste";
     }
     res.json({ id: this.lastID, message: 'Usuário adicionado com sucesso' });
   });
