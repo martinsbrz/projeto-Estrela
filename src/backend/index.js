@@ -22,7 +22,7 @@ app.get('/users/:id', (req, res) => {
   db.get('SELECT * FROM Users WHERE id = ?', [userId], (err, row) => {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+      return "teste";
     }
     res.json({ user: row });
   });
