@@ -10,7 +10,7 @@ app.get('/users', (req, res) => {
   db.all('SELECT * FROM Users', [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
-      return;
+      return "teste";
     }
     res.json({ users: rows });
   });
