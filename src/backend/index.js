@@ -37,7 +37,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *                       name:
  *                         type: string
  */
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
   db.query('SELECT * FROM users', [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
@@ -76,7 +76,7 @@ app.get('/users', (req, res) => {
  *                     name:
  *                       type: string
  */ 
-app.get('/users/:id', (req, res) => {
+app.get('/api/users/:id', (req, res) => {
   const userId = req.params.id;
   db.query('SELECT * FROM users WHERE id = ?', [userId], (err, row) => {
     if (err) {
@@ -115,7 +115,7 @@ app.get('/users/:id', (req, res) => {
  *                 message:
  *                   type: string
  */
-app.post('/users', (req, res) => {
+app.post('/api/users', (req, res) => {
   const { name } = req.body;
   db.query('INSERT INTO users (name) VALUES (?)', [name], function (err) {
     if (err) {
@@ -152,7 +152,7 @@ app.post('/users', (req, res) => {
  *       200:
  *         description: Usuário atualizado com sucesso
  */
-app.put('/users/:id', (req, res) => {
+app.put('/api/users/:id', (req, res) => {
   const userId = req.params.id;
   const { name } = req.body;
   db.query('UPDATE users SET name = ? WHERE id = ?', [name, userId], function (err) {
@@ -181,7 +181,7 @@ app.put('/users/:id', (req, res) => {
  *       200:
  *         description: Usuário deletado com sucesso
  */
-app.delete('/users/:id', (req, res) => {
+app.delete('/api/users/:id', (req, res) => {
   const userId = req.params.id;
   db.query('DELETE FROM users WHERE id = ?', [userId], function (err) {
     if (err) {

@@ -12,11 +12,11 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'https://vps55503.publiccloud.com.br/api-docs',
+        url: '/api',
       },
     ],
   },
-  apis: ['./index.js'], // Caminho para o arquivo que contém as rotas
+  apis: ['index.js'], // Caminho para o arquivo que contém as rotas
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
