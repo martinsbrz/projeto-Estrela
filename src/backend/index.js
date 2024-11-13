@@ -4,13 +4,10 @@ const app = express();
 const db = require('./dbConfig');
 const bodyParser = require('body-parser');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocs = require('./swaggerConfig'); // Importa a configuração do Swagger
-
+const swaggerDocs = require('./swaggerConfig'); 
 
 app.use(cors());
 app.use(bodyParser.json());
-
-// Configuração do Swagger na rota /api-docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Rota para buscar todos os usuários
@@ -37,14 +34,13 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *                       name:
  *                         type: string
  */
-app.get('/api/users', (req, res) => {
-  db.query('SELECT * FROM users', [], (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return "teste";
-    }
+app.get('/api/users', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT * FROM users');
     res.json({ users: rows });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Rota para buscar um usuário por ID
@@ -75,16 +71,15 @@ app.get('/api/users', (req, res) => {
  *                       type: integer
  *                     name:
  *                       type: string
- */ 
-app.get('/api/users/:id', (req, res) => {
+ */
+app.get('/api/users/:id', async (req, res) => {
   const userId = req.params.id;
-  db.query('SELECT * FROM users WHERE id = ?', [userId], (err, row) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return "teste";
-    }
-    res.json({ user: row });
-  });
+  try {
+    const [rows] = await db.query('SELECT * FROM users WHERE id = ?', [userId]);
+    res.json({ user: rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Rota para adicionar um novo usuário
@@ -102,6 +97,7 @@ app.get('/api/users/:id', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
+ *                 description: Nome do usuário
  *     responses:
  *       200:
  *         description: Usuário adicionado com sucesso
@@ -115,15 +111,14 @@ app.get('/api/users/:id', (req, res) => {
  *                 message:
  *                   type: string
  */
-app.post('/api/users', (req, res) => {
+app.post('/api/users', async (req, res) => {
   const { name } = req.body;
-  db.query('INSERT INTO users (name) VALUES (?)', [name], function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return "teste";
-    }
-    res.json({ id: this.lastID, message: 'Usuário adicionado com sucesso' });
-  });
+  try {
+    const [result] = await db.query('INSERT INTO users (name) VALUES (?)', [name]);
+    res.json({ id: result.insertId, message: 'Usuário adicionado com sucesso' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Rota para atualizar um usuário
@@ -148,20 +143,27 @@ app.post('/api/users', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
+ *                 description: Novo nome do usuário
  *     responses:
  *       200:
  *         description: Usuário atualizado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
  */
-app.put('/api/users/:id', (req, res) => {
+app.put('/api/users/:id', async (req, res) => {
   const userId = req.params.id;
   const { name } = req.body;
-  db.query('UPDATE users SET name = ? WHERE id = ?', [name, userId], function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
+  try {
+    await db.query('UPDATE users SET name = ? WHERE id = ?', [name, userId]);
     res.json({ message: 'Usuário atualizado com sucesso' });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Rota para deletar um usuário
@@ -180,16 +182,22 @@ app.put('/api/users/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Usuário deletado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
  */
-app.delete('/api/users/:id', (req, res) => {
+app.delete('/api/users/:id', async (req, res) => {
   const userId = req.params.id;
-  db.query('DELETE FROM users WHERE id = ?', [userId], function (err) {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
+  try {
+    await db.query('DELETE FROM users WHERE id = ?', [userId]);
     res.json({ message: 'Usuário deletado com sucesso' });
-  });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Configurando a porta da aplicação

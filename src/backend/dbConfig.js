@@ -1,18 +1,14 @@
 const mysql = require('mysql2');
 
-const connection = mysql.createConnection({
-  host: '191.252.120.105',      // endereço do servidor do banco de dados
-  user: 'adminEstrela',     // usuário do banco
-  password: 'a246Projeto@',   // senha do usuário
-  database: 'projetoEstrelaHomolog'    // nome do banco de dados
+const pool = mysql.createPool({
+  host: '191.252.120.105',
+  user: 'adminEstrela',
+  password: 'a246Projeto@',
+  database: 'projetoEstrelaHomolog',
+  waitForConnections: true,      // Faz com que as solicitações aguardem uma conexão em vez de gerar erros
+  connectionLimit: 10,           // Número máximo de conexões no pool
+  queueLimit: 0                  // Zero para desativar o limite de filas
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar ao MySQL:', err.message);
-    return;
-  }
-  console.log('Conectado ao MySQL!');
-});
-
-module.exports = connection;
+// Exporta o pool para que seja usado em outras partes do código
+module.exports = pool.promise();  // Usando promessas para suporte ao async/await
