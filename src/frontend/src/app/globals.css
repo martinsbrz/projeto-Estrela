@@ -4,54 +4,65 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   --brown: #B0733E;
+  --darkbrown: #5f3d1f;
   --lightgray: #F6F6F6;
   --mediumgray: #E8E8E8;
   --darkgray: #BDBDBD;
+  --smallfont: 16px;
+  --mediumfont: 18px;
 }
 
 /* Grouped styles */
-body, main, header, footer, .form-container {
+.body, .main, .header, .footer, .form-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
 
-main, header, input, footer, .password-container, button, .form-container {
+.main, .header, .input, .footer, .password-container, .button, .form-container {
   width: 100%;
 }
 
-input, button {
+.input, .button {
   height: 40px;
-  font-size: 16px;
+  font-size: var(--smallfont);
 }
 
-footer, .form-container {
+.footer, .form-container {
   gap: 10px;
 }
 
-/* Tags */
-body {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 500;
+.button:hover, .password-btn:hover, .link:hover {
+  cursor: pointer;
+  text-shadow: 0.5px 0.5px var(--darkbrown);
 }
 
-main {
-  height: 100vh;
+/* Single styles */
+.body {
+  font-family: "Roboto", sans-serif;
+  font-size: var(--mediumfont);
+  font-weight: 500;
+  height: 90vh;
+}
+
+.main {
+  height: 100%;
   padding: 40px;
 }
 
-header {
+.header {
   gap: 30px;
 }
 
-h1 {
+.title-1 {
   font-weight: 500;
 }
 
-input {
+.input {
   padding: 0 10px;
   background-color: var(--lightgray);
   outline: none;
@@ -60,16 +71,16 @@ input {
   font-weight: 500;
 }
 
-input::placeholder {
+.input::placeholder {
   color: var(--darkgray);
 }
 
-a {
+.link {
   text-decoration: none;
   color: var(--brown);
 }
 
-button {
+.button {
   background-color: var(--brown);
   color: white;
   border: none;
@@ -77,21 +88,30 @@ button {
   font-weight: 600;
 }
 
-/* Classes */
 .password-container {
   position: relative;
 }
 
-.password-link:last-child {
+.password-btn:last-child {
   position: absolute;
-  font-size: 16px;
+  font-size: var(--smallfont);
   right: 4%;
   top: 30%;
+  border: none;
+  color: var(--brown);
+  font-weight: 500;
+  background-color: transparent;
 }
 
 @media (min-width: 620px) {
-  main {
-    width: 60%;
+  * {
+    --smallfont: 18px;
+    --mediumfont: 20px;
+  }
+  .main {
+    width: calc(100% - 40%);
+    height: auto;
+    gap: 100px;
     margin: 30px;
     border: 1px solid black;
     border-radius: 30px;
@@ -100,7 +120,19 @@ button {
 }
 
 @media (min-width: 1080px) {
-  main {
-    width: 30%;
+  .main {
+    width: calc(100% - 65%);
+  }
+}
+
+@media (min-width: 1440px) {
+  .main {
+    width: calc(100% - 75%);
+  }
+}
+
+@media (min-width: 1700px) {
+  .main {
+    width: calc(100% - 80%)
   }
 }

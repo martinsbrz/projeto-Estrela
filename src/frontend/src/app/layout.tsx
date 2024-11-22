@@ -1,3 +1,4 @@
+import 'normalize.css';
 import "./globals.css";
 
 export default function RootLayout({
@@ -6,8 +7,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className='layout'>
+      <body className='body'>
         {children}
       </body>
     </html>
