@@ -1,0 +1,30 @@
+.turnOffButton, .turnOffImage {
+  display: none;
+}
+
+@media (min-width: 1080px) {
+  .turnOffButton, .turnOffImage {
+    display: inline;
+  }
+
+  .turnOffButton {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+  }
+
+  .turnOffButton:hover {
+    cursor: pointer;
+  }
+
+  .turnOffImage {
+    width: 80%;
+    height: 80%;
+  }
+}

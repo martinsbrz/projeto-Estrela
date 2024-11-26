@@ -1,6 +1,6 @@
 import 'normalize.css';
-import "./globals.css";
-
+import './ui/css/global.css';
+ 
 export default function RootLayout({
   children,
 }: Readonly<{
