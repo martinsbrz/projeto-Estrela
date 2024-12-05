@@ -13,13 +13,16 @@
   --darkgray: #BDBDBD;
   --smallfont: 16px;
   --mediumfont: 18px;
+  --largefont: 24px;
 }
 
 /* Grouped styles */
 .body, .main, .header, .footer, .form-container {
+  display: -webkit-flex;
   display: flex;
-  flex-direction: column;
+  -webkit-justify-content: space-between;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -103,25 +106,10 @@
   background-color: transparent;
 }
 
-@media (min-width: 620px) {
-  * {
-    --smallfont: 18px;
-    --mediumfont: 20px;
-  }
-  .main {
-    width: calc(100% - 40%);
-    height: auto;
-    gap: 100px;
-    margin: 30px;
-    border: 1px solid black;
-    border-radius: 30px;
-    box-shadow: 2px 4px 5px 0 black;
-  }
-}
-
 @media (min-width: 1080px) {
   .main {
-    width: calc(100% - 65%);
+    width: 100%;
+    left: 30%;
   }
 }
 
@@ -133,6 +121,15 @@
 
 @media (min-width: 1700px) {
   .main {
-    width: calc(100% - 80%)
+    width: calc(100% - 80%);
+    font-size: var(--largefont);
+  }
+
+  .password-btn {
+    font-size: var(--mediumfont);
+  }
+
+  .link, .button, .input::placeholder {
+    font-size: var(--largefont);
   }
 }
