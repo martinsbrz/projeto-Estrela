@@ -14,9 +14,9 @@
   --lightgray: #F6F6F6;
   --mediumgray: #E8E8E8;
   --darkgray: #BDBDBD;
-  --smallfont: 18px;
-  --mediumfont: 22px;
-  --largefont: 30px;
+  --smallfont: 14px;
+  --mediumfont: 16px;
+  --largefont: 28px;
 }
 
 body {
@@ -167,6 +167,7 @@ body {
 
 .navbar-subtitle {
   display: none;
+  font-size: var(--smallfont);
 }
 
 .page {
@@ -208,18 +209,25 @@ body {
 
 @media (min-width: 1080px) {
   * {
-    --smallfont: 20px;
-    --mediumfont: 26px;
-    --largefont: 34px;
+    --smallfont: 16px;
+    --mediumfont: 20px;
+    --largefont: 32px;
   }
 
   .logoff-icon {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .main {
+    width: 60%;
+    height: 60%;
   }
   
-  .main {
+  .main-home {
     flex-direction: row-reverse;
+    width: 100%;
+    height: 100%;
   }
 
   .navbar-container {
@@ -240,7 +248,8 @@ body {
 
   .navbar-link {
     display: flex;
-    align-items: start;
+    align-items: center;
+    
     width: 100%;
     gap: 30px;
     padding: 0 20px;
