@@ -30,9 +30,9 @@ export default function NavBar() {
             </Link>
           </li>
           <li className="navbar-item">
-            <Link href={'/home'} className="navbar-link">
-              <img src="/vazio.png" alt="Vazio ícones criados por Dreamstale - Flaticon" className="navbar-icon" />
-              <h3 className="navbar-subtitle">Início</h3>
+            <Link href={'/desligar'} className="navbar-link">
+              <img src="/desligar.png" alt="Ligado desligado ícones criados por Uniconlabs - Flaticon" className="navbar-icon" />
+              <h3 className="navbar-subtitle">Logoff</h3>
             </Link>
           </li>
         </ul>
