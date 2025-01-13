@@ -5,7 +5,7 @@ export default function Relatorio() {
 
   return (
     <main className="flex flex-col justify-center items-center p-5 w-full" id="main">
-      <header className="flex flex-row">
+      <header className="flex flex-row relative w-full justify-center items-center">
         <Link className="absolute left-0 pl-4 text-primary" href={"/calendario"} >Voltar</Link>
         <h1 className="text-3xl font-bold">Relatório</h1>
       </header>
