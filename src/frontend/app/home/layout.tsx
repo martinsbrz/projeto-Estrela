@@ -2,7 +2,7 @@
 
 import { NextUIProvider } from "@nextui-org/system"
 import LogOff from "../ui/logoff"
-import NavBar from "../ui/navbar"
+import NavBar from "../components/Navbar"
 
 export default function Layout (
   {
