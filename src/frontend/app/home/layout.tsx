@@ -1,5 +1,8 @@
+'use client';
+
+import { NextUIProvider } from "@nextui-org/system"
 import LogOff from "../ui/logoff"
-import NavBar from "../ui/navbar"
+import NavBar from "../components/Navbar"
 
 export default function Layout (
   {
@@ -11,8 +14,9 @@ export default function Layout (
   return (
     <main className="main main-home">
       <div className="display-container">
-        <LogOff />
-        <div className="main-children">{children}</div>
+        <NextUIProvider>
+          <div className="main-children">{children}</div>
+        </NextUIProvider>
       </div>
       <NavBar />
     </main>
