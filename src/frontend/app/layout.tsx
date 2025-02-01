@@ -6,8 +6,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="page">
-      <body>
+    <html className='w-full h-full flex flex-col justify-center items-center relative'>
+      <body className='w-full h-full flex flex-col justify-center items-center relative'>
         {children}
       </body>
     </html>
