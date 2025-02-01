@@ -6,6 +6,7 @@ export default function Input({type, name, id, placeholder}) {
       name={name} 
       id={id} 
       placeholder={placeholder}
+      required
     />
   )
 }

@@ -6,8 +6,8 @@ import Input from '../components/Input';
 import ButtonLarge from '../components/ButtonLarge';
 
 export default function Page() {
-  function handleClick() {
-    return false;
+  async function handleSubmit() {
+    return false
   }
 
   return (
@@ -20,32 +20,13 @@ export default function Page() {
             <PageLink href={"/login"} content="Login" />
           </div>
         </header>
-        <section className='relative flex flex-col justify-center items-center gap-4 py-10'>
-        <Input 
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Nome"
-          />
-          <Input 
-            type="email"
-            name="email"
-            id="email"
-            placeholder="E-mail"
-          />
-          <Input 
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Senha"
-          />
-        </section>
+        <form onSubmit={handleSubmit} className='relative flex flex-col justify-center items-center gap-4 py-10'>
+          <Input type="text" name="name" id="name" placeholder="Nome" />
+          <Input type="email" name="email" id="email" placeholder="E-mail" />
+          <Input type="password" name="password" id="password" placeholder="Senha" />
+          <ButtonLarge content="Cadastrar" id={'register-button'} />
+        </form>
         <footer className='flex flex-col w-full justify-center items-center gap-3'>
-          <ButtonLarge 
-            content="Cadastrar"
-            acao={handleClick}
-            id={'register-button'}
-          />
           <PageLink href={"/forgotpassword"} content="Esqueceu sua senha?" />
           <div className="absolute w-full flex justify-between bottom-0 p-10 md:hidden">
             <PageLink href={"/"} content="Home" />
