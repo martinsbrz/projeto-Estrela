@@ -4,6 +4,7 @@ export default function ButtonLarge({onClick, id, content}) {
     className="text-white text-lg font-bold bg-lightbrown w-[20rem] h-[2.5rem] md:w-[25rem] rounded-md"
       id={id}
       type="submit"
+      onClick={onClick}
     >
       {content}
     </button>

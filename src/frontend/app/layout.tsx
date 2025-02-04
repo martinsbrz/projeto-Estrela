@@ -1,3 +1,4 @@
+import { HeroUIProvider } from '@heroui/react';
 import './globals.css';
 
 export default function RootLayout({
@@ -7,9 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <html className='w-full h-full flex flex-col justify-center items-center relative'>
-      <body className='w-full h-full flex flex-col justify-center items-center relative'>
-        {children}
-      </body>
+      <HeroUIProvider>
+        <body className='w-full h-full flex flex-col justify-center items-center relative'>
+          {children}
+        </body>
+      </HeroUIProvider>
     </html>
   );
 }
