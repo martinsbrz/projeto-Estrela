@@ -200,6 +200,49 @@ app.delete('/api/users/:id', async (req, res) => {
   }
 });
 
+// TURMAS
+
+app.get('/api/turmas', async(req, res) => {
+  try {
+    const [rows] = await db.query(`select * from turmas`);
+    res.json({turmas: rows});
+  } catch(err) {
+    res.status(500).json({error: err.message});
+  }
+})
+
+app.get('/api/turmas/:idadeturma', async(req, res) => {
+  const idadeTurma = req.params.idadeturma;
+  try {
+    const [rows] = await db.query(`
+      select a.nome
+      from turmas t 
+      join alunos_turmas at on t.id_turma = at.id_turma
+      join alunos a on at.id_aluno = a.id_aluno
+      where idade_turma = ?
+    `, [idadeTurma]);
+    res.json({turma: rows});
+  } catch(err) {
+    res.status(500).json({error: err.message});
+  }
+})
+
+app.get('/api/turmas/data/:data', async (req, res) => {
+  const data = req.params.data;
+  try {
+    const [rows] = await db.query(`
+      select t.idade_turma, ct.inicio, ct.fim
+      from aulas_turmas aut
+      join turmas t on aut.id_turma = t.id_turma
+      join cronograma_turma ct on t.id_turma = ct.id_turma
+      where aut.data = ?
+    `, [data]);
+    res.json({dia: rows});
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
+})
+
 // Configurando a porta da aplicação
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

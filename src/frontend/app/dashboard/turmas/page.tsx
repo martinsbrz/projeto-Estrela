@@ -37,9 +37,16 @@ export default function Page() {
       <header className='relative'>
         <TitleLarge content={'Turmas'} />
       </header>
-      <TitleMedium content={'Selecionar idade da turma'} />
-      <FormularioBuscaAlunos turmas={turmas} handleChange={handleChange} acao={getTurmaPorIdade} />
-      <ListaAlunos alunos={alunos} />
+      <div className='flex flex-col md:flex-row justify-around w-full'>
+        <div className='flex flex-col justify-start items-center'>
+          <TitleMedium content={'Selecionar idade da turma'} />
+          <FormularioBuscaAlunos turmas={turmas} handleChange={handleChange} acao={getTurmaPorIdade} />
+        </div>
+        <div className='flex flex-col justify-start items-center'>
+          <TitleMedium content={'Alunos'} />
+          <ListaAlunos alunos={alunos} />
+        </div>
+      </div>
     </div>
   );
 }
