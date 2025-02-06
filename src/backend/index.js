@@ -211,33 +211,50 @@ app.get('/api/turmas', async(req, res) => {
   }
 })
 
-app.get('/api/turmas/:idadeturma', async(req, res) => {
-  const idadeTurma = req.params.idadeturma;
+app.get('/api/aulas/dia/:dia/', async (req, res) => {
+  const dia = req.params.dia;
   try {
     const [rows] = await db.query(`
-      select a.nome
-      from turmas t 
-      join alunos_turmas at on t.id_turma = at.id_turma
-      join alunos a on at.id_aluno = a.id_aluno
-      where idade_turma = ?
-    `, [idadeTurma]);
-    res.json({turma: rows});
-  } catch(err) {
+      select t.idade_turma, ct.inicio, ct.fim
+      from cronograma_turma ct
+      join turmas t on ct.id_turma = t.id_turma
+      where ct.dia = ?
+    `, [dia]);
+    res.json({dia: rows});
+  } catch (err) {
     res.status(500).json({error: err.message});
   }
 })
 
-app.get('/api/turmas/data/:data', async (req, res) => {
-  const data = req.params.data;
+app.get('/api/alunos/:idadeTurma/', async (req, res) => {
+  const idadeTurma = req.params.idadeTurma;
   try {
     const [rows] = await db.query(`
-      select t.idade_turma, ct.inicio, ct.fim
-      from aulas_turmas aut
-      join turmas t on aut.id_turma = t.id_turma
+      select t.id_turma, a.id_aluno, t.idade_turma, ct.inicio, a.nome, a.sobrenome
+      from alunos_turmas at
+      join turmas t on at.id_turma = t.id_turma 
+      join alunos a on at.id_aluno = a.id_aluno
       join cronograma_turma ct on t.id_turma = ct.id_turma
-      where aut.data = ?
-    `, [data]);
-    res.json({dia: rows});
+      where t.idade_turma = ?;
+    `, [idadeTurma]);
+    res.json({alunos: rows})
+  } catch (error) {
+    res.status(500).json({error: error.message});
+  }
+})
+
+app.post('/api/turmas/registroaula', async (req, res) => {
+  const {idTurma, idAluno, status, data, inicio} = req.body;
+  try {
+    const [verify] = await db.query(`select data, id_aluno from aulas_turmas where data = ? and id_aluno = ?`, [data, idAluno]);
+
+    if (!verify.length) {
+      await db.query(`
+        insert into aulas_turmas (id_turma, id_aluno, status, data, inicio) values
+        (?, ?, ?, ?, ?)
+      `, [idTurma, idAluno, status, data, inicio]);
+      res.json('Registro de frequência realizado');
+    }
   } catch (err) {
     res.status(500).json({error: err.message});
   }

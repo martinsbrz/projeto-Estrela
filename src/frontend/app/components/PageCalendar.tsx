@@ -1,26 +1,26 @@
-'use client';
-
-import { Calendar, CalendarDate } from "@heroui/react";
+import { Calendar } from "@heroui/react";
 import { I18nProvider } from "@react-aria/i18n";
 
-
-export default function PageCalendar({value, setValue}:{value:CalendarDate, setValue:React.Dispatch<React.SetStateAction<CalendarDate>>}) {
+export default function PageCalendar({data, setData, setAulas}) {
   return (
     <div className="flex flex-col justify-center items-center gap-8">
       <I18nProvider locale="pt-BR">
         <Calendar
           showMonthAndYearPickers
           aria-label="Date (Show Month and Year Picker)"
-          focusedValue={value}
+          focusedValue={data}
           nextButtonProps={{
             variant: "bordered",
           }}
           prevButtonProps={{
             variant: "bordered",
           }}
-          value={value}
-          onChange={setValue}
-          onFocusChange={setValue}
+          value={data}
+          onChange={() => {
+            setData();
+            setAulas([]);
+          }}
+          onFocusChange={setData}
           classNames={{
             nextButton:"bg-white w-20 h-10",
             prevButton:"bg-white w-20 h-10",
