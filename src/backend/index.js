@@ -226,20 +226,54 @@ app.get('/api/aulas/dia/:dia/', async (req, res) => {
   }
 })
 
-app.get('/api/alunos/:idadeTurma/', async (req, res) => {
+app.get('/api/turmas/idade/:idadeTurma/', async (req, res) => {
   const idadeTurma = req.params.idadeTurma;
   try {
     const [rows] = await db.query(`
-      select t.id_turma, a.id_aluno, t.idade_turma, ct.inicio, a.nome, a.sobrenome
+      select t.id_turma, a.id_aluno, t.idade_turma, ct.inicio, a.nome, a.sobrenome, ct.dia
       from alunos_turmas at
       join turmas t on at.id_turma = t.id_turma 
       join alunos a on at.id_aluno = a.id_aluno
       join cronograma_turma ct on t.id_turma = ct.id_turma
       where t.idade_turma = ?;
     `, [idadeTurma]);
-    res.json({alunos: rows})
+    res.json({turma: rows})
   } catch (error) {
     res.status(500).json({error: error.message});
+  }
+})
+
+app.get('/api/aula/aluno/:data', async (req, res) => {
+  const data = req.params.data;
+  try {
+    const [rows] = await db.query(`
+      select a.id_aluno, t.idade_turma, at2.status
+      from aulas_turmas at2
+      join alunos a on at2.id_aluno = a.id_aluno
+      join turmas t on at2.id_turma = t.id_turma
+      where at2.data = ?  
+    `, [data]);
+    res.json({alunos: rows})
+  } catch (err) {
+    res.status(500).json({error: err.message});
+  }
+})
+
+app.get('/api/registroaula/:data/:idTurma', async (req, res) => {
+  const data = req.params.data;
+  const idTurma = req.params.idTurma;
+  try {
+    const [rows] = await db.query(`
+      select at.data, t.idade_turma, a.nome, a.sobrenome, at.status 
+      from aulas_turmas at
+      join turmas t on at.id_turma = t.id_turma 
+      join alunos a on at.id_aluno = a.id_aluno 
+      where at.data = ?
+      and at.id_turma = ?
+    `, [data, idTurma]);
+    res.json({registroaula: rows});
+  } catch (err) {
+    res.status(500).json({error: err.message});
   }
 })
 

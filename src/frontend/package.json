@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@heroui/calendar": "^2.2.10",
+    "@heroui/date-picker": "^2.3.13",
     "@heroui/react": "^2.6.14",
+    "@heroui/system": "^2.4.10",
+    "@heroui/theme": "^2.4.9",
     "@internationalized/date": "^3.7.0",
     "@nextui-org/calendar": "^2.2.8",
     "@nextui-org/system": "^2.4.5",

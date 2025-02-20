@@ -6,11 +6,15 @@ export default function ListaAlunosChamada({alunosDaChamada, setAlunosDaChamada,
 
   function getStatus(nome) {
     const dbContent = sessionStorage.getItem('dbTurmasChamadas');
-    const chamadas = JSON.parse(dbContent);
-    const aluno = chamadas.filter(item => {
-      return item.nome === nome && item.data === data.toString();
-    })[0];
-    return aluno;
+    if (dbContent) {
+      const chamadas = JSON.parse(dbContent);
+      const aluno = chamadas.filter(item => {
+        return item.nome === nome && item.data === data.toString();
+      })[0];
+      return aluno;
+    } else {
+      sessionStorage.setItem('dbTurmasChamadas', '[]');
+    }
   }
 
   function adicionarStatus(aluno, novoStatus) {
@@ -22,7 +26,7 @@ export default function ListaAlunosChamada({alunosDaChamada, setAlunosDaChamada,
       status: novoStatus,
       data: data.toString()
     };
-    informacoesAlunos[aluno.sobrenome] = {...informacoes};
+    informacoesAlunos[`${aluno.nome} ${aluno.sobrenome}`] = {...informacoes};
     setInformacoesAlunos(informacoesAlunos);
   }
 

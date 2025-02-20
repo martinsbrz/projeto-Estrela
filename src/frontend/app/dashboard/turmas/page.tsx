@@ -112,7 +112,7 @@ export default function Page() {
       </div>
       {
         telaAdicionar &&
-        <div className='bg-white sm:h-full md:h-[90%] w-[80%] absolute border z-10 bottom-10 sm:bottom-0 md:bottom-12 p-8 flex flex-col justify-center items-center gap-4'>
+        <div className='bg-white h-full sm:h-full md:h-[90%] w-[80%] absolute border z-10 bottom-10 sm:bottom-0 md:bottom-12 p-8 flex flex-col justify-center items-center gap-4'>
           <Form className='w-[90%] flex flex-col gap-6' onSubmit={criarTurma} validationBehavior='native'>
             <Input 
               className='h-[30px]'
