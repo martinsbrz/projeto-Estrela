@@ -1,22 +1,15 @@
-import Link from "next/link";
+import PageLink from "./components/PageLink";
+import TitleLarge from "./components/TitleLarge";
 
 export default function Page() {
   return (
-    <main className="main">
-      <header className="header">
-        <h1 className="title">Projeto Estrela</h1>
-      </header>
-      <footer className="footer">
-        <Link href={'/login'} className="link">
-          Login
-        </Link>
-        <Link href={'/cadastro'} className="link">
-          Cadastro
-        </Link>
-        <Link href={'/home'} className="link">
-          Início
-        </Link>
-      </footer>
+    <main className="w-full h-full flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center bottom-0 absolute py-[8rem] gap-5">
+        <TitleLarge content={'Projeto Estrela'} />
+        <PageLink href={"/login"} content="Login" />
+        <PageLink href={"/cadastro"} content="Cadastrar" />
+        <PageLink href={"/dashboard"} content="Sistema" />
+      </div>
     </main>
   );
 }
