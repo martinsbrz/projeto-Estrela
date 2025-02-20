@@ -1,7 +1,7 @@
 import { Calendar } from "@heroui/react";
 import { I18nProvider } from "@react-aria/i18n";
 
-export default function PageCalendar({data, setData, setAulas}) {
+export default function PageCalendar({data, setData, setAulasDoDia}) {
   return (
     <div className="flex flex-col justify-center items-center gap-8">
       <I18nProvider locale="pt-BR">
@@ -18,7 +18,7 @@ export default function PageCalendar({data, setData, setAulas}) {
           value={data}
           onChange={() => {
             setData();
-            setAulas([]);
+            setAulasDoDia([]);
           }}
           onFocusChange={setData}
           classNames={{

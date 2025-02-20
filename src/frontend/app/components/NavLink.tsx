@@ -15,7 +15,7 @@ export default function NavLink(
   }
 ) {
   return (
-    <div className="w-[60px] h-[60px] bg-lightgray flex flex-col justify-center items-center rounded-full active:bg-lightbrown md:hover:w-[140px] group">
+    <div className="w-[60px] sm:w-[50px] h-[60px] sm:h-[50px] bg-lightgray flex flex-col justify-center items-center rounded-full active:bg-lightbrown md:hover:w-[140px] group">
       <Link className="rounded-full p-[14px] flex items-center gap-2" href={href}>
         <Image src={imgSrc} alt={imgAlt} width={40} height={40} />
         <h2 className="hidden md:group-hover:block">{nome}</h2>
